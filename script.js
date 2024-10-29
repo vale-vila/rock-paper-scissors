@@ -10,12 +10,15 @@
     let round = 1
 
 
-function playGame(){
+function playGame(humanChoice){
+    const winnerDisplay = document.querySelector(`#Winner`);
+
+    if (round <=5 || computerScore == humanScore){
 
    
     
 
-    if (round <= 5){
+
 
         function getComputerChoice(){
             let range = Math.random()
@@ -30,18 +33,22 @@ function playGame(){
             }
         }
         
+   
         
-        function getHumanChoice(){
-            let choice = prompt("Rock me, fold me like Paper, or Scissor me?");
-            let chosen = choice.toLowerCase();
-            return chosen;
-        }
-        
-            const humanChoice = getHumanChoice();
             const computerChoice = getComputerChoice();
-            console.log("Round:" + round);
-            console.log("You:" + humanChoice + " " + "Points:" + humanScore);
-            console.log("Computer:" + computerChoice + " " + "Points:" + computerScore);
+            
+
+            const roundDisplay = document.querySelector("#round");
+                roundDisplay.textContent = `Round: ${round}`;
+                console.log("Round:" + round);
+
+            const pointsDisplay = document.querySelector("#Score");
+                pointsDisplay.textContent = `Points.  You: ${humanScore}.  Computer: ${computerScore}.`;
+                console.log("You:" + " " + humanChoice + " " + "Points:" + humanScore);
+
+            const choiceDisplay = document.querySelector('#Choice');
+                choiceDisplay.textContent = `You: ${humanChoice}     Computer: ${computerChoice}`;
+                console.log("Computer:" + " " + computerChoice + " " + "Points:" + computerScore);
            
         
 
@@ -78,39 +85,45 @@ function playGame(){
             else{
                 return "stop copying me!";
             }
-            
-            
-
-            
         }
-        
         console.log(playRound(humanChoice,computerChoice));
 
-
+        round++
     }
+        
+        else if (humanScore > computerScore){
+           
 
-    else{
-        if(humanScore > computerScore){
-            return "youre a winner, baby!";
-        }
-        else{
-            return "Better Luck Next Time";
-        }
-    }
+            winnerDisplay.textContent = "You're a winner!";
 
+        }
+        
+        else {
+            
+            winnerDisplay.textContent = "you're a loser!";
+        }
+        
+        
+        
     
-}
-
-console.log(playGame());
-round++;
-console.log(playGame());
-round++;
-console.log(playGame());
-round++;
-console.log(playGame());
-round++;
-console.log(playGame());
-round++;
-console.log(playGame());
+            }
+   
 
 
+
+
+const rockBtn = document.querySelector('#rockBtn');
+rockBtn.addEventListener("click" , () => {
+    console.log(playGame("rock"));
+});
+
+const paperBtn = document.querySelector('#paperBtn');
+const scissorsBtn = document.querySelector('#scissorsBtn');
+
+paperBtn.addEventListener("click", () => {
+    console.log(playGame("paper"));
+});
+
+scissorsBtn.addEventListener("click", () => {
+    console.log(playGame("scissors"));
+});
